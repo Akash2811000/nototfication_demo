@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bloc:
   firebase_auth:
-  firebase_core:
+  firebase_core: ^2.4.1
   fluttertoast:
   email_validator:
   rxdart:
