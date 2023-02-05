@@ -1,6 +1,7 @@
 import { userModel } from '../model/user'
 import express, { Express, Request, Response } from 'express'
 import { devicemodel } from '../model/device';
+import * as admin from 'firebase-admin';
 
 class UserDomain {
 
@@ -25,11 +26,14 @@ class UserDomain {
                 fcmtoken: req.body.fcmtoken,
                 useruid: emailExist._id,
             }
-            console.log("devicedata", devicedata);
+            const notification_options = {
+                priority: "high",
+                timeToLive: 60 * 60 * 24
+            };
             var deviceid = await devicemodel.find({ device_id: req.body.deviceid });
-            console.log("deviceid", deviceid);
+
             var data = new devicemodel(devicedata);
-            console.log("data", data);
+
             if (deviceid.length == 1) {
                 await devicemodel.updateOne({
                     "device_id": req.body.deviceid,
@@ -42,15 +46,58 @@ class UserDomain {
                         }
                     }
                 );
-                return res.send(emailExist);
-                // res.status(200).send(emailExist)
+
+
+
+                //To find FCM token
+                var userDevices = await devicemodel.find({ useruid: emailExist._id });
+                var userData: String = emailExist.email
+                var registrationToken: any = [];
+                userDevices.forEach(element => {
+                    registrationToken.push(element.fcmtoken);
+                });
+                const options = notification_options;
+                const bookingSuccessfullMessage = {
+                    "data": { "key": "booking" },
+                    "notification": {
+                        "title": "Booking successfull",
+                        "body": `Hi ${userData}, thanks for choosing to stay `
+                    }
+
+                }
+                //Booking Successfull Notification
+                admin.messaging().sendToDevice(registrationToken, bookingSuccessfullMessage, options);
+                console.log("hy from if");
+                return res.status(200).send(emailExist);
+
+
             }
             else {
                 await data.save();
+                //To find FCM token
+                var userDevices = await devicemodel.find({ useruid: emailExist._id });
+                var userData: String = emailExist.email
+                var registrationToken: any = [];
+                userDevices.forEach(element => {
+                    registrationToken.push(element.fcmtoken);
+                });
+                const options = notification_options;
+                const bookingSuccessfullMessage = {
+                    "data": { "key": "booking" },
+                    "notification": {
+                        "title": "Booking successfull",
+                        "body": `Hi ${userData}, thanks for choosing to stay `
+                    }
+
+                }
+                //Booking Successfull Notification
+                admin.messaging().sendToDevice(registrationToken, bookingSuccessfullMessage, options);
+                console.log("hy from else");
                 return res.send(emailExist);
                 // res.status(200).send("Data save")
             }
-            return res.send(emailExist);
+
+
         } catch (error: any) {
             return res.status(400).send(error.message);
         }
