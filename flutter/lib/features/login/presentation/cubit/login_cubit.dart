@@ -17,7 +17,7 @@ LoginUsecase loginUsecase;
      String? deviceId = await _getId();
 
     var res=await loginUsecase.call(Params(email, password, token!, deviceId!));
-    res.fold((r)=>{print('r')},(l)=>{print('l')});
+    res.fold((l)=>{print('l')},(r){print('r ${r}'); emit(LoginSuccess());});
 
   }
 
@@ -30,5 +30,10 @@ LoginUsecase loginUsecase;
       var androidDeviceInfo = await deviceInfo.androidInfo;
       return androidDeviceInfo.id; // Unique ID on Android
     }
+  }
+
+  logOut(){
+    emit(LoginLoading());
+
   }
 }

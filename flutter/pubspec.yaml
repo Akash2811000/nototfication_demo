@@ -47,6 +47,7 @@ dependencies:
   dio:
   get_it:
   device_info_plus:
+  flutter_local_notifications: ^9.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

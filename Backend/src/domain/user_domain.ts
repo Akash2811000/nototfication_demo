@@ -26,18 +26,22 @@ class UserDomain {
                 fcmtoken: req.body.fcmtoken,
                 useruid: emailExist._id,
             }
+            console.log('1');
+
             const notification_options = {
                 priority: "high",
                 timeToLive: 60 * 60 * 24
             };
+            console.log('2');
             var deviceid = await devicemodel.find({ device_id: req.body.deviceid });
-
+            console.log('3');
             var data = new devicemodel(devicedata);
-
+            console.log('4');
             if (deviceid.length == 1) {
+                console.log('6');
+
                 await devicemodel.updateOne({
                     "device_id": req.body.deviceid,
-
                 },
                     {
                         $set: {
@@ -46,6 +50,8 @@ class UserDomain {
                         }
                     }
                 );
+                console.log('7');
+
 
 
 
@@ -53,9 +59,13 @@ class UserDomain {
                 var userDevices = await devicemodel.find({ useruid: emailExist._id });
                 var userData: String = emailExist.email
                 var registrationToken: any = [];
+                console.log('8');
+
                 userDevices.forEach(element => {
                     registrationToken.push(element.fcmtoken);
                 });
+                console.log('9');
+
                 const options = notification_options;
                 const bookingSuccessfullMessage = {
                     "data": { "key": "booking" },
@@ -65,6 +75,8 @@ class UserDomain {
                     }
 
                 }
+                console.log('10');
+
                 //Booking Successfull Notification
                 admin.messaging().sendToDevice(registrationToken, bookingSuccessfullMessage, options);
                 console.log("hy from if");
@@ -73,11 +85,14 @@ class UserDomain {
 
             }
             else {
+                console.log('else');
+
                 await data.save();
                 //To find FCM token
                 var userDevices = await devicemodel.find({ useruid: emailExist._id });
                 var userData: String = emailExist.email
                 var registrationToken: any = [];
+                console.log('else 1');
                 userDevices.forEach(element => {
                     registrationToken.push(element.fcmtoken);
                 });
@@ -90,9 +105,11 @@ class UserDomain {
                     }
 
                 }
+                console.log('else 2');
                 //Booking Successfull Notification
                 admin.messaging().sendToDevice(registrationToken, bookingSuccessfullMessage, options);
                 console.log("hy from else");
+                console.log('else 4');
                 return res.send(emailExist);
                 // res.status(200).send("Data save")
             }

@@ -15,4 +15,9 @@ class LoginRepositoryImpl implements LoginRepository {
     print(' repo ${email}');
     return await loginDataSource.login(email,password,fcm,deviceid);
   }
+
+  Future<Either<Failures, void>> logout(String id)async{
+    print(' repo');
+    return await loginDataSource.logout(id);
+  }
 }

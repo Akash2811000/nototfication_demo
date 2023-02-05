@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:notification_demo/core/navigation/router_info.dart';
 import 'package:notification_demo/features/login/presentation/cubit/login_cubit.dart';
+import 'package:notification_demo/features/login/presentation/cubit/login_state.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
@@ -28,9 +30,16 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('login');
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    return Scaffold(
+    return BlocListener<LoginCubit, LoginState>(
+  listener: (context, state) {
+    if( state is LoginSuccess){
+      Navigator.pushNamedAndRemoveUntil(context, RoutesName.home, (route) => false);
+    }
+  },
+  child: Scaffold(
         body: Container(
             padding: const EdgeInsets.only(
                 top: 100.0, right: 20.0, left: 20.0, bottom: 20.0),
@@ -97,6 +106,7 @@ class Login extends StatelessWidget {
 
                 ],
               ),
-            )));
+            ))),
+);
   }
 }

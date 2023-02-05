@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notification_demo/core/navigation/router_info.dart';
 import 'package:notification_demo/features/login/login_injection.dart';
 import 'package:notification_demo/features/login/presentation/cubit/login_cubit.dart';
+import 'package:notification_demo/features/login/presentation/pages/home_page.dart';
 import 'package:notification_demo/features/login/presentation/pages/login.dart';
 
 class Router {
@@ -14,6 +15,10 @@ class Router {
             create: (context) => loginSl<LoginCubit>(),
             child: Login(),
           );
+        });
+      case RoutesName.home:
+        return MaterialPageRoute(builder: (_) {
+          return  Home();
         });
       default:
         return MaterialPageRoute(builder: (_) {

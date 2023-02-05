@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:notification_demo/core/services/notification/notification_service.dart';
 import 'package:notification_demo/features/login/presentation/pages/login.dart';
 import './features/login/login_injection.dart' as loginsl ;
 
@@ -11,6 +12,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await PushNotificationService().setupInteractedMessage();
+  PushNotificationService().broadcastNotification();
   runApp(const MyApp());
 }
 
@@ -20,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Notofication',
         onGenerateRoute: app_routes.Router.generateRoutes,
