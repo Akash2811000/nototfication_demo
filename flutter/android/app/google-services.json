@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "343237866823",
+    "project_id": "notofication-demo-ccf50",
+    "storage_bucket": "notofication-demo-ccf50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343237866823:android:e8e3cd86fc39b8a5d44862",
+        "android_client_info": {
+          "package_name": "com.example.notification_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343237866823-19v7ie110gckdafnepiggf6vb8ohqj6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWqNw03n2eT8trFi9ee8gybPNTMBI72BE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343237866823-19v7ie110gckdafnepiggf6vb8ohqj6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
