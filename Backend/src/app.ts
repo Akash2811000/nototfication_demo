@@ -8,7 +8,6 @@ app.use(express.json());
 
 import { router as userroute } from './controller/login_contoller';
 
-var registrationToken = "AAAAT-qSNUc:APA91bEqT5SdTKr9mUllVITl5N7ob-WXswmeWaXy36crJ9IFGpYxskLpMypVsQ_KZHzXoN-NhovjM-2RsPP7TlP1rKCyNN3z8dorSlqwkEhPIuvHNAeyrngynxTIFYfaUo5cxsHTH09Y";
 
 // FIREBASE INTITIALIZE
 admin.initializeApp(
@@ -39,14 +38,22 @@ app.get('/', (req: Request, res: Response) => {
     res.send('MMT Backend development');
     res.end();
 });
-
+const message = {
+    notification: {
+      title: '$FooCorp up 1.43% on the day',
+      body: '$FooCorp gained 11.80 points to close at 835.67, up 1.43% on the day.'
+    },
+    topic:"Events"
+  };
 app.use('/user', userroute);
-admin.messaging().sendToDevice(registrationToken, payload, options)
-    .then(function (response) {
-        console.log("Successfully sent message:", response);
-    })
-    .catch(function (error) {
-        console.log("Error sending message:", error);
-    });
+
+admin.messaging().send(message)
+  .then((response) => {
+    // Response is a message ID string.
+    console.log('Successfully sent message:', response);
+  })
+  .catch((error) => {
+    console.log('Error sending message:', error);
+});
 
 export { app };

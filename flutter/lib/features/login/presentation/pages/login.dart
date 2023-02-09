@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:notification_demo/core/navigation/router_info.dart';
@@ -11,13 +10,8 @@ class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
   final formGlobalKey = GlobalKey<FormState>();
 
-  void showToast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-    );
-  }
+
+
   bool isPasswordValid(String password) => password.length >= 6;
 
   bool isEmailValid(email) {

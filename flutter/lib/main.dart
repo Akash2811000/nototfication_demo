@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_demo/core/services/notification/notification_service.dart';
-import 'package:notification_demo/features/login/presentation/pages/login.dart';
+
 import './features/login/login_injection.dart' as loginsl ;
 
 import './core/navigation/app_router.dart' as app_routes;

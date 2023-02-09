@@ -18,9 +18,10 @@ class LoginDataSourceImpl implements LoginDataSource {
   @override
   Future<Either<Failures,LoginModel>> login(String email, String password,String deviceid, String fcm) async {
     try {
-      final response = await dio.post('https://15ec-2406-b400-d5-caab-93a-379b-d3e-ba26.in.ngrok.io/user/login',data: {"email":email,"password":password,"fcmtoken":fcm,"deviceid":deviceid});
+      final response = await dio.post('https://9a2c-180-211-112-179.in.ngrok.io/user/login',data: {"email":email,"password":password,"fcmtoken":fcm,"deviceid":deviceid});
       print(' datasource ${email},${fcm},${deviceid},${password}');
     var result = response.data;
+      print("response ${response}");
     if (response.statusCode == 200) {
     LoginModel loginModel=LoginModel.fromJson(response.data);
     return Right(loginModel);
@@ -33,6 +34,7 @@ class LoginDataSourceImpl implements LoginDataSource {
     return Left(InternetFailure());
     }
     } catch (e) {
+      print('${e}');
     return Left(ServerFailure());
     }
   }

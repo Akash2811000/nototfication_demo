@@ -23,7 +23,7 @@ class DeviceDomain {
                 },
                     {
                         $set: {
-                            useruid: reqData.uid,
+                            useruid: req.body.uid,
                             fcmtoken: req.body.fcmtoken
                         }
                     }
